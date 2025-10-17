@@ -6,7 +6,19 @@ void main() {
     const MaterialApp(
       home: Scaffold(
         body: Center(
-          child: GeneratedSVG(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GeneratedSVG(),
+              SizedBox(
+                height: 40,
+              ),
+              Text(
+                "Hello World",
+                style: TextStyle(fontFamily: 'Inter', fontSize: 20),
+              ),
+            ],
+          ),
         ),
       ),
     ),
