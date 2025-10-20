@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:sample/Widgets/welcome_screen.dart';
+import 'package:sample/Widgets/second.dart';
 
 void main() {
-  runApp(
-    const MaterialApp(
-      home: Scaffold(body: WelcomePage()),
-    ),
-  );
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Second(),
+    );
+  }
 }
