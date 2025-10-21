@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sample/Widgets/second.dart';
+import 'package:provider/provider.dart';
+import 'package:sample/Widgets/home.dart';
+import 'package:sample/Widgets/list_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,8 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Second(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => NumbersListProvider()),
+      ],
+      child: MaterialApp(
+        home: Home(),
+      ),
     );
   }
 }

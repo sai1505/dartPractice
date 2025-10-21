@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sample/Widgets/list_provider.dart';
+import 'package:sample/Widgets/second.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -8,30 +11,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<int> numbers = [1, 2, 3];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          int last = numbers.last;
-          setState(() {
-            numbers.add(last + 1);
-          });
-        },
-        backgroundColor: Colors.black,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
+    return Consumer<NumbersListProvider>(
+      builder: (context, numberProviderModel, child) => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            numberProviderModel.add();
+          },
+          backgroundColor: Colors.black,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        toolbarHeight: 40,
-      ),
-      body: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-        child: Center(
+        appBar: AppBar(
+          backgroundColor: Colors.blueAccent,
+          toolbarHeight: 40,
+        ),
+        body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -50,7 +48,7 @@ class _HomeState extends State<Home> {
                 height: 30,
               ),
               Text(
-                numbers.last.toString(),
+                numberProviderModel.numbers.last.toString(),
                 style: TextStyle(fontSize: 15, color: Colors.black),
               ),
               SizedBox(
@@ -58,15 +56,42 @@ class _HomeState extends State<Home> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: numbers.length,
+                  itemCount: numberProviderModel.numbers.length,
                   itemBuilder: (context, index) {
                     return Center(
                       child: Text(
-                        numbers[index].toString(),
+                        numberProviderModel.numbers[index].toString(),
                         style: TextStyle(fontSize: 15),
                       ),
                     );
                   },
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: 20),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(Colors.black),
+                    padding: WidgetStatePropertyAll(
+                      EdgeInsets.symmetric(horizontal: 20),
+                    ),
+                  ),
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Second()),
+                    ),
+                  },
+                  child: Text(
+                    "Second",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
                 ),
               ),
             ],
