@@ -1,15 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:sample/features/posts/ui/posts_page.dart';
+import 'package:flutter/foundation.dart';
 
-void main() {
-  runApp(MyApp());
+Stream<int> boatStream() async* {
+  for (int i = 1; i <= 10; i++) {
+    if (kDebugMode) {
+      print("Sending boat no $i");
+      await Future.delayed(Duration(seconds: 3));
+      yield i;
+    }
+  }
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: PostsPage());
-  }
+void main() async {
+  Stream<int> boats = boatStream();
+  boats.listen((receivedData) {
+    if (kDebugMode) {
+      print("Received Boat no $receivedData");
+    }
+  });
 }
